@@ -38,6 +38,9 @@ lazy.setup({
 	-- create a pair for ", ' and ` automatically
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 
+	-- syntax highlighting
+	{ "https://github.com/nvim-treesitter/nvim-treesitter" },
+
 	-- colorscheme that actually looks good
 	{
 		"rebelot/kanagawa.nvim",
