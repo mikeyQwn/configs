@@ -12,6 +12,12 @@ def copy(path_from: str, path_to: str):
         shutil.copytree(path_to, f"{BACKUP_DIRECTORY}/{os.path.basename(path_from)}", dirs_exist_ok=True)
     shutil.copytree(path_from, path_to, dirs_exist_ok=True)
 
+def copy_file(path_from: str, path_to: str):
+    if os.path.exists(path_from):
+        shutil.copy(path_to, f"{BACKUP_DIRECTORY}/{os.path.basename(path_from)}")
+    shutil.copy(path_from, path_to)
+
+
 HOME_DIR = os.path.expanduser('~')
 
 if __name__ == "__main__":
@@ -19,5 +25,6 @@ if __name__ == "__main__":
     for flag in flags:
         if is_oneof(flag, "--nvim", "-n"):
             copy("./nvim", f"{HOME_DIR}/.config/nvim")
-            # shutil.copytree("./nvim", f"{HOME_DIR}/.config/nvim", dirs_exist_ok=True)
+        if is_oneof(flag, "--zshrc", "-z"):
+            copy_file("./.zshrc", f"{HOME_DIR}/.zshrc")
         else: print(f"unsupported argument: {flag}")

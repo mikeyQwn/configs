@@ -39,7 +39,9 @@ lazy.setup({
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 
 	-- syntax highlighting
-	{ "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ "https://github.com/nvim-treesitter/nvim-treesitter", highlight = {
+		enable = true,
+	} },
 
 	-- colorscheme that actually looks good
 	{
@@ -219,7 +221,7 @@ lazy.setup({
 				-- c
 				clangd = {
 					-- do not run on .proto files
-					filetypes = { "c" },
+					filetypes = { "c", "cpp" },
 				},
 				-- go
 				gopls = {},
