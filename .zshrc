@@ -50,6 +50,8 @@ alias kubectl="minikube kubectl --"
 alias usage="du --max-depth=1 2>/dev/null"
 alias sc="nvim $HOME/scratchpad.md"
 
+mkfile() { mkdir -p "$(dirname $1)" && touch "$1" }
+
 if [ -d ~/.bashrc.d ]; then
 	for rc in ~/.bashrc.d/*; do
 		if [ -f "$rc" ]; then

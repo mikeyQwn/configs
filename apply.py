@@ -25,6 +25,6 @@ if __name__ == "__main__":
     for flag in flags:
         if is_oneof(flag, "--nvim", "-n"):
             copy("./nvim", f"{HOME_DIR}/.config/nvim")
-        if is_oneof(flag, "--zshrc", "-z"):
+        elif is_oneof(flag, "--zshrc", "-z"):
             copy_file("./.zshrc", f"{HOME_DIR}/.zshrc")
         else: print(f"unsupported argument: {flag}")

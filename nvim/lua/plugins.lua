@@ -73,6 +73,26 @@ lazy.setup({
 			},
 		},
 	},
+	-- Database UIS
+	{
+		{
+			"kristijanhusak/vim-dadbod-ui",
+			dependencies = {
+				{ "tpope/vim-dadbod", lazy = true },
+				{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
+			},
+			cmd = {
+				"DBUI",
+				"DBUIToggle",
+				"DBUIAddConnection",
+				"DBUIFindBuffer",
+			},
+			init = function()
+				-- Your DBUI configuration
+				vim.g.db_ui_use_nerd_fonts = 1
+			end,
+		},
+	},
 
 	-- file switching, string grepping and diagnostic listing, basically
 	{
@@ -217,6 +237,12 @@ lazy.setup({
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+			-- TODO: Fix this and add to config
+			-- local rust_config = { checkOnSave = { enable = false } }
+			-- rust_analyzer = {
+			-- 	settings = { ["rust-analyzer"] = rust_config },
+			-- },
+
 			local servers = {
 				-- c
 				clangd = {
@@ -308,6 +334,7 @@ lazy.setup({
 				css = { "prettier" },
 				c = { "clang-format" },
 				cpp = { "clang-format" },
+				templ = { "templ" },
 			},
 			formatters = {
 				["clang-format"] = {
@@ -417,3 +444,10 @@ require("conform").formatters.prettierv2 = function(bufnr)
 		stdin = true,
 	}
 end
+
+local cmp = require("cmp")
+cmp.setup.filetype({ "sql" }, {
+	sources = {
+		{ name = "vim-dadbod-completion" },
+	},
+})
