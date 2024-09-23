@@ -49,8 +49,8 @@ alias fz='cd $(find ./ -type d | fzf)'
 alias kubectl="minikube kubectl --"
 alias usage="du --max-depth=1 2>/dev/null"
 alias sc="nvim $HOME/scratchpad.md"
-
-mkfile() { mkdir -p "$(dirname $1)" && touch "$1" }
+alias pandocview='f() { pandoc "$1" -o /tmp/markdown.html -H <(echo "\
+<style>body { max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; }</style>") && firefox /tmp/markdown.html; }; f'
 
 if [ -d ~/.bashrc.d ]; then
 	for rc in ~/.bashrc.d/*; do
