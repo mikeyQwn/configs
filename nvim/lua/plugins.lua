@@ -45,13 +45,15 @@ lazy.setup({
 
 	-- colorscheme that actually looks good
 	{
-		"rebelot/kanagawa.nvim",
+		"eddyekofo94/gruvbox-flat.nvim",
 		priority = 1000,
-		init = function()
-			vim.cmd.colorscheme("kanagawa")
+		enabled = true,
+		config = function()
+			vim.g.gruvbox_flat_style = "dark"
+			vim.g.gruvbox_transparent = "true"
+			vim.cmd([[colorscheme gruvbox-flat]])
 		end,
 	},
-
 	-- highlight todos and fixmes
 	{
 		"folke/todo-comments.nvim",

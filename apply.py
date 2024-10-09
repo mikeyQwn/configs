@@ -27,4 +27,6 @@ if __name__ == "__main__":
             copy("./nvim", f"{HOME_DIR}/.config/nvim")
         elif is_oneof(flag, "--zshrc", "-z"):
             copy_file("./.zshrc", f"{HOME_DIR}/.zshrc")
+        elif is_oneof(flag, "--alacritty", "-a"):
+            copy("./alacritty", f"{HOME_DIR}/.config/alacritty")
         else: print(f"unsupported argument: {flag}")
