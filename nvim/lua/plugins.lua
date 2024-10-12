@@ -251,6 +251,7 @@ lazy.setup({
 					-- do not run on .proto files
 					filetypes = { "c", "cpp" },
 				},
+
 				-- go
 				gopls = {},
 				-- lua
@@ -451,5 +452,20 @@ local cmp = require("cmp")
 cmp.setup.filetype({ "sql" }, {
 	sources = {
 		{ name = "vim-dadbod-completion" },
+	},
+})
+
+-- rust-analyzer fluff
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+require("lspconfig").rust_analyzer.setup({
+	capabilities = capabilities,
+	on_attach = function() end,
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+			},
+		},
 	},
 })
