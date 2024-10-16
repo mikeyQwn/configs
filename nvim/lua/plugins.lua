@@ -178,6 +178,9 @@ lazy.setup({
 		end,
 	},
 
+	-- linting needs
+	{ "mfussenegger/nvim-lint" },
+
 	-- sane default configs for a lot of lsps
 	{
 		"neovim/nvim-lspconfig",
@@ -301,6 +304,7 @@ lazy.setup({
 			})
 		end,
 	},
+	{},
 
 	-- formatting on save
 	{
@@ -423,7 +427,7 @@ lazy.setup({
 })
 
 -- addition prettier configuration for yaml files
-require("conform").formatters.prettierv2 = function(bufnr)
+require("conform").formatters.prettierv2 = function(_)
 	return {
 		command = "prettier",
 		args = function(self, ctx)
@@ -468,4 +472,15 @@ require("lspconfig").rust_analyzer.setup({
 			},
 		},
 	},
+})
+
+require("lint").linters_by_ft = {
+	go = { "golangcilint" },
+	rust = { "clippy" },
+}
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	callback = function()
+		require("lint").try_lint()
+	end,
 })
