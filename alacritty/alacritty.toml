@@ -23,7 +23,7 @@ style = "Italic"
 family = "FiraCodeNerdFont"
 style = "Regular"
 
-[shell]
+[terminal.shell]
 args = ["-l", "-c", "tmux attach || tmux"]
 program = "/bin/bash"
 
