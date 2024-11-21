@@ -39,9 +39,24 @@ lazy.setup({
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 
 	-- syntax highlighting
-	{ "https://github.com/nvim-treesitter/nvim-treesitter", highlight = {
-		enable = true,
-	} },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		main = "nvim-treesitter.configs",
+		opts = {
+			ensure_installed = {
+				"go",
+				"rust",
+				"sql",
+			},
+			auto_install = true,
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = { "ruby" },
+			},
+			indent = { enable = true, disable = { "ruby" } },
+		},
+	},
 
 	-- colorscheme that actually looks good
 	{
@@ -272,7 +287,7 @@ lazy.setup({
 				-- htmx
 				htmx = {},
 				-- js/ts
-				tsserver = {},
+				ts_ls = {},
 			}
 
 			require("mason").setup()
