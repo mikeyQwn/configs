@@ -25,6 +25,140 @@ local function eval_parser(self, ctx)
 end
 
 lazy.setup({
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"nvim-neotest/nvim-nio",
+			"theHamsta/nvim-dap-virtual-text",
+			"leoluz/nvim-dap-go",
+		},
+		config = function()
+			local dap = require("dap")
+			local dapui = require("dapui")
+
+			dapui.setup({
+				controls = {
+					element = "repl",
+					enabled = true,
+					icons = {
+						disconnect = "",
+						pause = "",
+						play = "",
+						run_last = "",
+						step_back = "",
+						step_into = "",
+						step_out = "",
+						step_over = "",
+						terminate = "",
+					},
+				},
+				element_mappings = {},
+				expand_lines = true,
+				floating = {
+					border = "single",
+					mappings = {
+						close = { "q", "<Esc>" },
+					},
+				},
+				force_buffers = true,
+				icons = {
+					collapsed = "",
+					current_frame = "",
+					expanded = "",
+				},
+				layouts = {
+					{
+						elements = {
+							{
+								id = "scopes",
+								size = 0.25,
+							},
+							{
+								id = "breakpoints",
+								size = 0.25,
+							},
+							{
+								id = "stacks",
+								size = 0.25,
+							},
+							{
+								id = "watches",
+								size = 0.25,
+							},
+						},
+						position = "left",
+						size = 40,
+					},
+					{
+						elements = {
+							{
+								id = "repl",
+								size = 1.0,
+							},
+						},
+						position = "bottom",
+						size = 10,
+					},
+				},
+				mappings = {
+					edit = "e",
+					expand = { "<CR>", "<2-LeftMouse>" },
+					open = "o",
+					remove = "d",
+					repl = "r",
+					toggle = "t",
+				},
+				render = {
+					indent = 1,
+					max_value_lines = 100,
+				},
+			})
+
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
+
+			vim.keymap.set("n", "<leader>dt", dap.toggle_breakpoint)
+			vim.keymap.set("n", "<leader>dn", dap.step_over)
+			vim.keymap.set("n", "<leader>dc", dap.continue)
+		end,
+	},
+	{
+
+		"leoluz/nvim-dap-go",
+		opts = {
+			dap_configurations = {
+				{
+					type = "go",
+					name = "Attach remote",
+					mode = "remote",
+					request = "attach",
+				},
+			},
+			delve = {
+				path = "dlv",
+				initialize_timeout_sec = 20,
+				port = "${port}",
+				args = {},
+				build_flags = {},
+				detached = vim.fn.has("win32") == 0,
+				cwd = nil,
+			},
+			tests = {
+				verbose = false,
+			},
+		},
+	},
 	-- make the background disappear
 	{
 		"xiyaowong/transparent.nvim",
@@ -499,3 +633,14 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 		require("lint").try_lint()
 	end,
 })
+
+-- rust_analyzer error -32802 workaround
+for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
+	local default_diagnostic_handler = vim.lsp.handlers[method]
+	vim.lsp.handlers[method] = function(err, result, context, config)
+		if err ~= nil and err.code == -32802 then
+			return
+		end
+		return default_diagnostic_handler(err, result, context, config)
+	end
+end
