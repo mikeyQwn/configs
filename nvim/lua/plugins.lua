@@ -502,6 +502,7 @@ lazy.setup({
 			},
 		},
 	},
+	{ "nvim-treesitter/playground" },
 
 	-- snippets
 	{
