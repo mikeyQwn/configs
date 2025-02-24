@@ -22,3 +22,6 @@ km.set("n", "<C-k>", "<C-w><C-k>")
 km.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 km.set("n", "<leader>er", "oif err != nil {<CR>}<Esc>Oreturn nil, err<Esc>")
 km.set("n", "<leader>ef", "oif err != nil {<CR>}<Esc>Olog.Fatal(err)<Esc>")
+
+-- prevent fatfingering
+vim.cmd([[cnoreabbrev wq; wq]])
