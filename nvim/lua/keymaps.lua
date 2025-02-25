@@ -25,3 +25,4 @@ km.set("n", "<leader>ef", "oif err != nil {<CR>}<Esc>Olog.Fatal(err)<Esc>")
 
 -- prevent fatfingering
 vim.cmd([[cnoreabbrev wq; wq]])
+vim.cmd([[cnoreabbrev w; w]])
