@@ -28,6 +28,9 @@ then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
+# Dark theme
+export GTK_THEME=Adwaita:dark
+
 # Go
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/home/whoamii/go/bin
