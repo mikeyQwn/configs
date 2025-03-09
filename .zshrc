@@ -13,12 +13,12 @@ plugins=(
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# Nice gruvbox theme
+# Nice blue theme
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=white,underline
-ZSH_HIGHLIGHT_STYLES[precommand]=fg=white,underline
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=magenta
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=white',underline
-ZSH_HIGHLIGHT_STYLES[arg0]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[arg0]=fg=green
 
 # Bind accepting autosuggest to Ctrl-S
 bindkey '^s' autosuggest-accept
