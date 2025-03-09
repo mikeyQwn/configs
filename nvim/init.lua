@@ -8,4 +8,5 @@ require("autocmd")
 -- initializes `lazy` plugin manager and a bunch of plugins
 require("plugins")
 
+-- custom snippets
 require("snips")
