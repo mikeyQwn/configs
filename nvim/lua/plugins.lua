@@ -133,6 +133,17 @@ lazy.setup({
 			vim.keymap.set("n", "<leader>dc", dap.continue)
 		end,
 	},
+	-- file manipulation
+	{
+		"stevearc/oil.nvim",
+		config = function()
+			require("oil").setup()
+			vim.keymap.set("n", "<leader>ex", "<CMD>Oil<CR>")
+		end,
+		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		lazy = false,
+	},
+	-- debugging go
 	{
 
 		"leoluz/nvim-dap-go",

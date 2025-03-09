@@ -29,6 +29,6 @@ if __name__ == "__main__":
             copy_file("./.zshrc", f"{HOME_DIR}/.zshrc")
         elif is_oneof(flag, "--alacritty", "-a"):
             copy("./alacritty", f"{HOME_DIR}/.config/alacritty")
-        if is_oneof(flag, "--tmux", "-t"):
+        elif is_oneof(flag, "--tmux", "-t"):
             copy_file("./.tmux.conf", f"{HOME_DIR}/.tmux.conf")
         else: print(f"unsupported argument: {flag}")
