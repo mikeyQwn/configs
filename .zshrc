@@ -13,7 +13,6 @@ plugins=(
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# Nice blue theme
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=white,underline
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=magenta
@@ -23,35 +22,20 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=green
 # Bind accepting autosuggest to Ctrl-S
 bindkey '^s' autosuggest-accept
 
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
 
-# Dark theme
-export GTK_THEME=Adwaita:dark
+# --- Env vars ---
 
-# Go
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/home/whoamii/go/bin
-
-# Rust
-export PATH=$PATH:/home/whoamii/.cargo/bin
-export PATH
+export PAGER=less
 
 # Increase history file size
 export HISTFILESIZE=50000
 export HISTSIZE=50000
 
-# Aliases 
-alias eza="eza --long --git --icons"
-alias ezal="eza --long --git --icons --tree"
-alias fz='cd $(find ./ -type d | fzf)'
-alias kubectl="minikube kubectl --"
-alias usage="du --max-depth=1 2>/dev/null"
-alias sc="nvim $HOME/scratchpad.md"
+# Useless
+unset rc
+unset SSH_ASKPASS
 
-
+# Export bashrc.d
 if [ -d ~/.bashrc.d ]; then
 	for rc in ~/.bashrc.d/*; do
 		if [ -f "$rc" ]; then
@@ -60,11 +44,37 @@ if [ -d ~/.bashrc.d ]; then
 	done
 fi
 
-unset rc
-unset SSH_ASKPASS
+# --- Path exports ---
+
+if ! [[ "$PATH" != *"$HOME/.local/bin:$HOME/bin:"* ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+
+path_exports=(
+	"$HOME/scripts"
+	"$HOME/local/scripts"
+	# Go
+	"/usr/local/go/bin"
+	"$HOME/go/bin"
+	# Rust
+	"~/.cargo/bin"
+)
+
+for export in "${path_exports[@]}"; do
+	if [[ -d "$export" && ":$PATH:" != *":$dir:"* ]]; then
+		PATH="$PATH:$export"
+	fi
+done
+export PATH
+
+# --- Aliases ---
+
+alias eza="eza --long --git --icons"
+alias ezal="eza --long --git --icons --tree"
+
+# --- Zsh-stuff ---
 
 source $ZSH/oh-my-zsh.sh
+
 PROMPT='%{$fg_bold[yellow]%}➜  %{$fg[yellow]%}%c %{$fg_bold[cyan]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
-
-
-eval $(thefuck --alias)
