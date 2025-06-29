@@ -70,8 +70,8 @@ export PATH
 
 # --- Aliases ---
 
-alias eza="eza --long --git --icons"
-alias ezal="eza --long --git --icons --tree"
+alias el="eza --long --git --icons"
+alias et="eza --long --git --icons --tree"
 
 # --- Zsh-stuff ---
 
