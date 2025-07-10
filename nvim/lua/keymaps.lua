@@ -18,6 +18,8 @@ km.set("n", "<C-l>", "<C-w><C-l>")
 km.set("n", "<C-j>", "<C-w><C-j>")
 km.set("n", "<C-k>", "<C-w><C-k>")
 
+km.set("n", "<C-w>", "<C-w>w") -- toggle between panes
+
 -- golang-specific much-needed maps
 km.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 km.set("n", "<leader>er", "oif err != nil {<CR>}<Esc>Oreturn nil, err<Esc>")
