@@ -1,12 +1,10 @@
--- options that do not require plugins
-require("opts")
--- keymaps that do not require plugins
-require("keymaps")
--- autocommands that do not require plugins
-require("autocmd")
+local modules = {"options", "keymaps", "plugins"}
 
--- initializes `lazy` plugin manager and a bunch of plugins
-require("plugins")
+for _, module in ipairs(modules) do
+	xpcall(
+		function() require(module) end,
+		function(error) print(string.format("unable to load module %s: %s", module, error)) end
+	)
+end
 
--- custom snippets
-require("snips")
+vim.cmd.colorscheme("habamax")
