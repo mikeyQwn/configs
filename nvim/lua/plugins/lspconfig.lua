@@ -15,6 +15,10 @@ local lsps = {
 	templ = {},
 }
 
+local installed_lsps = {
+	"rust_analyzer",
+}
+
 local formatters = {
 	"stylua",
 	"gofumpt",
@@ -99,25 +103,32 @@ local M = {
 			})
 		end
 
+		local install_server = function(server_name)
+			local ok, lspconfig = pcall(require, "lspconfig")
+			if not ok then
+				vim.notify("[LSP Setup] Failed to load lspconfig for " .. server_name, vim.log.levels.WARN)
+				return
+			end
+
+			local server = lsps[server_name] or {}
+			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+			lspconfig[server_name].setup(server)
+		end
+
 		local ok, mason_lspconfig = pcall(require, "mason-lspconfig")
 		if not ok then
 			vim.notify("[LSP Setup] Failed to load mason-lspconfig", vim.log.levels.WARN)
 		else
 			mason_lspconfig.setup({
-				handlers = {
-					function(server_name)
-						local ok, lspconfig = pcall(require, "lspconfig")
-						if not ok then
-							vim.notify("[LSP Setup] Failed to load lspconfig for " .. server_name, vim.log.levels.WARN)
-							return
-						end
-
-						local server = lsps[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						lspconfig[server_name].setup(server)
-					end,
-				},
+				handlers = { install_server },
 			})
+		end
+
+		for _, lsp in ipairs(installed_lsps) do
+			local ok, lspconfig = pcall(install_server, lsp)
+			if not ok then
+				vim.notify("[LSP Setup] Failed to setup server: " .. lsp, vim.log.levels.WARN)
+			end
 		end
 	end,
 }

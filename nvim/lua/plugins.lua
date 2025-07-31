@@ -18,6 +18,7 @@ local plugins = {
 	{ name = "nvim_cmp", enabled = true },
 	{ name = "lspconfig", enabled = true },
 	{ name = "conform", enabled = true },
+	{ name = "transparent_nvim", enabled = true },
 }
 
 local enabled = {}
