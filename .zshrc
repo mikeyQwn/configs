@@ -22,7 +22,6 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=green
 # Bind accepting autosuggest to Ctrl-S
 bindkey '^s' autosuggest-accept
 
-
 # --- Env vars ---
 
 export PAGER=less
@@ -58,7 +57,7 @@ path_exports=(
 	"/usr/local/go/bin"
 	"$HOME/go/bin"
 	# Rust
-	"~/.cargo/bin"
+	"$HOME/.cargo/bin"
 )
 
 for export in "${path_exports[@]}"; do
@@ -70,8 +69,12 @@ export PATH
 
 # --- Aliases ---
 
-alias eza="eza --long --git --icons"
-alias ezal="eza --long --git --icons --tree"
+alias el="eza --long --git --icons"
+alias et="eza --long --git --icons --tree"
+
+zd () {
+	cd $(find ~/ -type d 2>/dev/null | fzf)
+}
 
 # --- Zsh-stuff ---
 
