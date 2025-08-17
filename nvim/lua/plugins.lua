@@ -19,6 +19,7 @@ local plugins = {
 	{ name = "lspconfig", enabled = true },
 	{ name = "conform", enabled = true },
 	{ name = "transparent_nvim", enabled = true },
+	{ name = "kanagawa", enabled = true },
 }
 
 local enabled = {}

@@ -125,7 +125,7 @@ local M = {
 		end
 
 		for _, lsp in ipairs(installed_lsps) do
-			local ok, lspconfig = pcall(install_server, lsp)
+			local ok, _ = pcall(install_server, lsp)
 			if not ok then
 				vim.notify("[LSP Setup] Failed to setup server: " .. lsp, vim.log.levels.WARN)
 			end
