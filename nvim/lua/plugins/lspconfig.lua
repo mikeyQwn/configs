@@ -12,11 +12,11 @@ local lsps = {
 			},
 		},
 	},
-	templ = {},
 }
 
 local installed_lsps = {
 	"rust_analyzer",
+	"pyright",
 }
 
 local formatters = {
